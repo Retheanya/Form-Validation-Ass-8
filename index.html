@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #FA989A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background: #4f93ec;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #80EF80;
+      color: rgb(17, 5, 16);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #ED5;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin: 2px 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>SIGN-UP FORM</h2>
+  <form id="regForm">
+    <label>Name</label>
+    <input type="text" id="name">
+    <p id="nameError" class="error"></p>
+
+     
+    <label>Phone Number</label>
+    <input type="text" id="phone">
+    <p id="phoneError" class="error"></p>
+
+    <label>Email</label>
+    <input type="text" id="email">
+    <p id="emailError" class="error"></p>
+    
+    <label>Password</label>
+    <input type="password" id="password">
+    <p id="passError" class="error"></p>
+    
+    <button type="submit" class="btn"><strong>Register</strong></button>
+  </form>
+</div>
+
+<script>
+document.getElementById("regForm").addEventListener("submit", function(e)
+{
+  e.preventDefault(); 
+  
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let password = document.getElementById("password").value.trim();
+  
+  
+  let nameError = document.getElementById("nameError");
+  let emailError = document.getElementById("emailError");
+  let phoneError = document.getElementById("phoneError");
+  let passError = document.getElementById("passError");
+  
+  
+  nameError.textContent = "";
+  emailError.textContent = "";
+  phoneError.textContent = "";
+  passError.textContent = "";
+  
+  let valid = true;
+  
+  
+  if(name === ""){
+    nameError.textContent = "Name is required";
+    valid = false;
+  }
+  
+  
+   
+  let phonePattern = /^[0-9]{10}$/;
+  if(phone === ""){
+    phoneError.textContent = "Phone number is required";
+    valid = false;
+  } else if(!phone.match(phonePattern)){
+    phoneError.textContent = "Enter a valid 10-digit phone number";
+    valid = false;
+  }
+
+  let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if(email === ""){
+    emailError.textContent = "Email is required";
+    valid = false;
+  } else if(!email.match(emailPattern)){
+    emailError.textContent = "Enter a valid email";
+    valid = false;
+  }
+  
+  
+    if(password === ""){
+    passError.textContent = "Password is required";
+    valid = false;
+  } else if(password.length < 6){
+    passError.textContent = "Password must be at least 6 characters";
+    valid = false;
+  }
+  
+  if(valid){
+    alert("Registration Successful!");
+  }
+});
+</script>
+
+</body>
+</html>
